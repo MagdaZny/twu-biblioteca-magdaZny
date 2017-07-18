@@ -28,16 +28,17 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void printBooksInStock() throws IOException {
+    public void printBooksInStockTitlesWithAuthorAndYear() throws IOException {
 
         bibliotecaApp.printBooksInStock();
 
         String output[] = systemOutRule.getLog().split("\n");
-        assertEquals("1. The Hunger Games", output[0]);
-        assertEquals("2. Harry Potter and the Order of the Phoenix", output[1]);
-        assertEquals("3. To Kill a Mockingbird", output[2]);
-        assertEquals("16. The Da Vinci Code", output[15]);
+        assertEquals("1   The Hunger Games                              Suzanne Collins      2008", output[2]);
+        assertEquals("2   Harry Potter and the Order of the Phoenix     J.K. Rowling         2004", output[3]);
+        assertEquals("3   To Kill a Mockingbird                         Harper Lee           1813", output[4]);
+        assertEquals("16  The Da Vinci Code                             Dan Brown            2003", output[17]);
     }
+
 }
 
 
