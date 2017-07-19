@@ -12,7 +12,12 @@ public class IOUtil {
         this.out = out;
     }
 
-    public String readString() {
+    public String next() {
+        return in.next();
+    }
+
+    public String readString(String message) {
+        out.println(message);
         return in.next();
     }
 
