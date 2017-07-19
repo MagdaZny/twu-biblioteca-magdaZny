@@ -84,6 +84,7 @@ public class BibliotecaApp {
             if (title.equals(book.get(0)) && author.equals(book.get(1)) && year.equals(book.get(2))){
                 booksInStock.remove(book);
                 booksCheckedOut.add(book);
+                io.println("Thank you! Enjoy the book");
                 break;
             }
         }

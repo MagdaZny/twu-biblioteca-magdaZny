@@ -121,7 +121,7 @@ public class BibliotecaAppTest {
 
 
     @Test
-    public void removeBookFromTheListWhenWasCheckedOut() throws IOException {
+    public void removeBookFromTheListAndAddToCheckedOutListWhenWasCheckedOut() throws IOException {
 
         Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
         scanner.useDelimiter(",");
@@ -135,12 +135,54 @@ public class BibliotecaAppTest {
         final String output = outputBuffer.toString();
 
         List<List<String>> booksInStock = app.getBooksInStock();
-        for(List<String> book: booksInStock){
-            assertFalse("Check if the book is in stock", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
+        for (List<String> book : booksInStock) {
+            assertFalse("Check that the book is not in a stock", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
         }
     }
 
+
+    @Test
+    public void addTheBookToCheckedOutListWhenWasCheckedOut() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+        app.checkOut();
+
+        final String output = outputBuffer.toString();
+
+        List<List<String>> booksInStock = app.getBooksCheckedOut();
+        for (List<String> book : booksInStock) {
+            assertTrue("Check that the book is in check out books list", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
+        }
+    }
+
+    @Test
+    public void printTheMessageWhenSuccessfullyCheckedOutTheBook() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+        app.checkOut();
+
+        final String output = outputBuffer.toString();
+
+        assertTrue(output.endsWith("Thank you! Enjoy the book\n"));
+    }
+
+
+
+
 }
+
 
 
 
