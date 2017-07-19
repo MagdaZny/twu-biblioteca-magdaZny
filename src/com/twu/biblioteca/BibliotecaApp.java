@@ -1,15 +1,17 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class BibliotecaApp {
 
+    private final IOUtil io;
     private String[][] booksInStock;
 
-    BibliotecaApp() throws IOException {
+
+    BibliotecaApp(Scanner scanner, PrintStream out) throws IOException {
+
+        io = new IOUtil(scanner, out);
 
         String file = new File("src/resources/books.csv").getAbsolutePath();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -26,31 +28,35 @@ public class BibliotecaApp {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        bibliotecaApp.start();
-    }
 
     public void start() {
 
-        System.out.println("Welcome to The Bangalore Public Library system.");
+        io.println("Welcome to The Bangalore Public Library system.");
         for (int i = 0; i < 47; i++) {
-            System.out.print("=");
+            io.print("=");
         }
-        System.out.println("\n");
-
-        printBooksInStock();
+        io.println("\n");        showMainMenu();
     }
+
 
     public void printBooksInStock() {
 
-        System.out.printf("%-3s %-45s %-20s %-4s\n", "No", "Title", "Author", "Year");
+        io.printf("%-3s %-45s %-20s %-4s\n", "No", "Title", "Author", "Year");
         for (int i = 0; i < 75; i++)
-            System.out.print("-");
-        System.out.println("");
+            io.print("-");
+        io.println("");
         for (int i = 0; i < booksInStock.length; i++)
-            System.out.printf("%-3d %-45s %-20s %-4s\n", i+1, booksInStock[i][0], booksInStock[i][1], booksInStock[i][2]);
+            io.printf("%-3d %-45s %-20s %-4s\n", i + 1, booksInStock[i][0], booksInStock[i][1], booksInStock[i][2]);
+    }
+
+    public void showMainMenu() {
+
+        io.println("Main Menu\n----------\nPlease select the option:");
+        io.printf("%-3d %-10s\n", 1, "List Books");
+
+        String choice = io.readString();
+
+        if ("1".equals(choice)) printBooksInStock();
     }
 }
 
