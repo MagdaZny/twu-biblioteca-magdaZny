@@ -86,7 +86,7 @@ public class BibliotecaApp {
                 booksCheckedOut.add(book);
                 io.println("Thank you! Enjoy the book");
                 break;
-            }
+            } else io.println("That book is not available.");
         }
     }
 

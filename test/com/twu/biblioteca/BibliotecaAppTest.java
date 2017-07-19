@@ -179,6 +179,26 @@ public class BibliotecaAppTest {
     }
 
 
+    @Test
+    public void printTheMessageWhenUnsuccessfullyCheckedOutTheBook() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thier,Markus Badach,2005");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+        app.checkOut();
+
+        final String output = outputBuffer.toString();
+
+        assertTrue(output.endsWith("That book is not available.\n"));
+    }
+
+
+
+
 
 
 }
