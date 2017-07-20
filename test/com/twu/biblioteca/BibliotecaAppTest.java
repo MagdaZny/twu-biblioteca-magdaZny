@@ -6,10 +6,12 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class BibliotecaAppTest {
@@ -18,8 +20,8 @@ public class BibliotecaAppTest {
     @Test
     public void printWelcomeMessageWhenStartApp() throws IOException {
 
-        final Scanner scanner = new Scanner("1");
-        scanner.useDelimiter(" ");
+        final Scanner scanner = new Scanner("1,n");
+        scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -35,7 +37,7 @@ public class BibliotecaAppTest {
     public void printBooksInStockTitlesWithAuthorAndYear() throws IOException {
 
         final Scanner scanner = new Scanner("1");
-        scanner.useDelimiter(" ");
+        scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -53,8 +55,8 @@ public class BibliotecaAppTest {
     @Test
     public void showMainMenu() throws IOException {
 
-        final Scanner scanner = new Scanner("1");
-        scanner.useDelimiter(" ");
+        final Scanner scanner = new Scanner("1,n");
+        scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -64,14 +66,14 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.startsWith("Main Menu"));
+        assertTrue(output.startsWith("Main Menu\n"));
     }
 
     @Test
     public void showListOfBooksWhenChooseOptionOne() throws IOException {
 
-        final Scanner scanner = new Scanner("1");
-        scanner.useDelimiter(" ");
+        final Scanner scanner = new Scanner("1,n");
+        scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -88,8 +90,8 @@ public class BibliotecaAppTest {
     @Test
     public void showMessageWhenInvalidOptionWasChosen() throws IOException {
 
-        final Scanner scanner = new Scanner("3");
-        scanner.useDelimiter(" ");
+        final Scanner scanner = new Scanner("4,Quit");
+        scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -105,8 +107,7 @@ public class BibliotecaAppTest {
     @Test
     public void terminateWhenQuitOptionWasChosen() throws IOException {
 
-        final Scanner scanner = new Scanner("quit");
-        scanner.useDelimiter(" ");
+        final Scanner scanner = new Scanner("Quit");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
@@ -116,7 +117,7 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.endsWith("Type 'Quit' if you want to leave.\n"));
+        assertTrue(output.contains("Type 'Quit' if you want to leave.\n"));
     }
 
 
@@ -130,7 +131,7 @@ public class BibliotecaAppTest {
         PrintStream out = new PrintStream(outputBuffer);
 
         final BibliotecaApp app = new BibliotecaApp(scanner, out);
-        app.checkOut();
+        app.checkOutTheBook();
 
         final String output = outputBuffer.toString();
 
@@ -151,12 +152,12 @@ public class BibliotecaAppTest {
         PrintStream out = new PrintStream(outputBuffer);
 
         final BibliotecaApp app = new BibliotecaApp(scanner, out);
-        app.checkOut();
+        app.checkOutTheBook();
 
         final String output = outputBuffer.toString();
 
-        List<List<String>> booksInStock = app.getBooksCheckedOut();
-        for (List<String> book : booksInStock) {
+        List<List<String>> bookCheckedOut = app.getBooksCheckedOut();
+        for (List<String> book : bookCheckedOut) {
             assertTrue("Check that the book is in check out books list", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
         }
     }
@@ -171,11 +172,12 @@ public class BibliotecaAppTest {
         PrintStream out = new PrintStream(outputBuffer);
 
         final BibliotecaApp app = new BibliotecaApp(scanner, out);
-        app.checkOut();
+        app.checkOutTheBook();
 
         final String output = outputBuffer.toString();
 
         assertTrue(output.contains("Thank you! Enjoy the book\n"));
+        assertFalse(output.contains("That book is not available."));
     }
 
 
@@ -189,18 +191,138 @@ public class BibliotecaAppTest {
         PrintStream out = new PrintStream(outputBuffer);
 
         final BibliotecaApp app = new BibliotecaApp(scanner, out);
-        app.checkOut();
+        app.checkOutTheBook();
 
         final String output = outputBuffer.toString();
 
         assertTrue(output.contains("That book is not available.\n"));
+        assertFalse(output.contains("Thank you! Enjoy the book\n"));
     }
 
 
+    @Test
+    public void checkOutTwoBooks() throws IOException {
 
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,2,The Chronicles of Narnia,C.S. Lewis,1956,Quit");
+        scanner.useDelimiter(",");
 
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
 
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+        app.checkOutTheBook();
 
+        final String output = outputBuffer.toString();
+
+        List<List<String>> booksCheckedOut = app.getBooksCheckedOut();
+        List<List<String>> booksInStock = app.getBooksInStock();
+
+        List<List<String>> inputBooks = new ArrayList();
+        List<String> row = new ArrayList();
+        inputBooks.add(row);
+        row.add("The Book Thief");
+        row.add("Markus Badach");
+        row.add("2005");
+        row = new ArrayList();
+        inputBooks.add(row);
+        row.add("The Chronicles of Narnia");
+        row.add("C.S. Lewis");
+        row.add("1956");
+
+        assertFalse(booksCheckedOut.contains(inputBooks));
+        assertEquals(booksCheckedOut, inputBooks);
+    }
+
+    @Test
+    public void addBookToBooksInStockListAndRemoveFromCheckedOutWhenWasReturned() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,Quit");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+
+        List<List<String>> inputBooks = new ArrayList();
+        List<String> row = new ArrayList();
+        row.add("The Book Thief");
+        row.add("Markus Badach");
+        row.add("2005");
+        inputBooks.add(row);
+
+        app.checkOutTheBook(row);
+
+        assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        assertEquals(app.getBooksCheckedOut(), inputBooks);
+
+        app.returnTheBook();
+
+        final String output = outputBuffer.toString();
+
+        assertTrue(app.getBooksInStock().containsAll(inputBooks));
+        assertTrue(app.getBooksCheckedOut().isEmpty());
+    }
+
+    @Test
+    public void printMessageWhenReturnedBookSuccessfully() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,Quit");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+
+        List<List<String>> inputBooks = new ArrayList();
+        List<String> row = new ArrayList();
+        row.add("The Book Thief");
+        row.add("Markus Badach");
+        row.add("2005");
+        inputBooks.add(row);
+
+        app.checkOutTheBook(row);
+
+        assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        assertEquals(app.getBooksCheckedOut(), inputBooks);
+
+        app.returnTheBook();
+
+        final String output = outputBuffer.toString();
+        assertTrue(output.contains("Thank you for returning the book."));
+        assertFalse(output.contains("That is not a valid book to return."));
+    }
+
+    @Test
+    public void printMessageWhenReturnedBookUnsuccessfully() throws IOException {
+
+        Scanner scanner = new Scanner("The Book Thief,Arkus Badach,2005,Quit");
+        scanner.useDelimiter(",");
+
+        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outputBuffer);
+
+        final BibliotecaApp app = new BibliotecaApp(scanner, out);
+
+        List<List<String>> inputBooks = new ArrayList();
+        List<String> row = new ArrayList();
+        row.add("The Book Thief");
+        row.add("Markus Badach");
+        row.add("2005");
+        inputBooks.add(row);
+
+        app.checkOutTheBook(row);
+
+        assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        assertEquals(app.getBooksCheckedOut(), inputBooks);
+
+        app.returnTheBook();
+
+        final String output = outputBuffer.toString();
+        assertTrue(output.contains("That is not a valid book to return."));
+        assertFalse(output.contains("Thank you for returning the book"));
+    }
 }
 
 

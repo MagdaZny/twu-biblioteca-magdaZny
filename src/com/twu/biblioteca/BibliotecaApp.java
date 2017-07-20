@@ -31,7 +31,7 @@ public class BibliotecaApp {
             row.add(book[0]);
             row.add(book[1]);
             row.add(book[2]);
-            booksInStock.add(i,row);
+            booksInStock.add(i, row);
         }
     }
 
@@ -56,42 +56,71 @@ public class BibliotecaApp {
         io.println("");
         for (int i = 0; i < booksInStock.size(); i++)
             io.printf("%-3d %-45s %-20s %-4s\n", i + 1, booksInStock.get(i).get(0), booksInStock.get(i).get(1), booksInStock.get(i).get(2));
+        io.println("\n");
+        if(io.readString("Do you want to go to the Main Menu?  Press 'y' to confirm.").equals("y")) showMainMenu();
     }
 
 
     public void showMainMenu() {
 
-        io.println("Main Menu\n----------\nPlease select the option:");
+        io.println("Main Menu\n----------\n\nPlease select the option by typing the corresponding number.");
         io.printf("%-3d %-10s\n", 1, "List Books");
         io.printf("%-3d %-10s\n", 2, "Check out a book");
-        io.print("\n\n\nType 'Quit' if you want to leave.\n");
+        io.printf("%-3d %-10s\n", 3, "Return a book");
+        io.println("\n\n\nType 'Quit' if you want to leave.");
+
+        decideTheOption();
+
+    }
+
+    private void decideTheOption(){
 
         String choice = io.next();
-
         if ("1".equals(choice)) printBooksInStock();
-        else if ("2".equals(choice)) checkOut();
+        else if ("2".equals(choice)) checkOutTheBook();
+        else if ("3".equals(choice)) returnTheBook();
         else if ("Quit".equalsIgnoreCase(choice)) return;
-        else io.println("Select a valid option!");
+        else {
+            io.println("Select a valid option!");
+            decideTheOption();
+        }
     }
 
 
-    public void checkOut() {
+    public void checkOutTheBook() {
 
-        io.println("In order to check out a book please provide the following details.");
-        String title = io.readString("title\n");
-        String author = io.readString("author\n");
-        String year = io.readString("year\n");
+        List<String> book = getBooksDetailsFromTheConsole("check out");
 
-        for (List<String> book: booksInStock){
-            if (title.equals(book.get(0)) && author.equals(book.get(1)) && year.equals(book.get(2))){
+        if (booksInStock.contains(book)){
                 booksInStock.remove(book);
                 booksCheckedOut.add(book);
-                io.println("Thank you! Enjoy the book");
-                break;
-            } else io.println("That book is not available.");
-        }
-
+                io.println("\nThank you! Enjoy the book\n\n");
+            } else io.println("\nThat book is not available.\n\n");
         showMainMenu();
+    }
+
+    public void returnTheBook() {
+
+        List<String> book = getBooksDetailsFromTheConsole("return");
+
+        if (booksCheckedOut.contains(book)){
+                booksCheckedOut.remove(book);
+                booksInStock.add(book);
+                io.println("\nThank you for returning the book.\n\n");
+            }else io.println("\nThat is not a valid book to return.\n\n");
+        showMainMenu();
+    }
+
+    private List<String> getBooksDetailsFromTheConsole(String activity) {
+
+        List<String> bookDetails = new ArrayList();
+
+        io.println("In order to " + activity + " a book please provide the following details.");
+        bookDetails.add(0,io.readString("\ntitle"));
+        bookDetails.add(1,io.readString("\nauthor"));
+        bookDetails.add(2, io.readString("\nyear"));
+
+        return bookDetails;
     }
 
 
@@ -102,6 +131,12 @@ public class BibliotecaApp {
 
     public List<List<String>> getBooksCheckedOut() {
         return booksCheckedOut;
+    }
+
+
+    public void checkOutTheBook(List<String> bookInStock) {
+        this.booksInStock.remove(bookInStock);
+        this.booksCheckedOut.add(bookInStock);
     }
 }
 
