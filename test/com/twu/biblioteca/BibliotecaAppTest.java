@@ -1,18 +1,13 @@
 package com.twu.biblioteca;
 
-
+import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class BibliotecaAppTest {
 
@@ -30,7 +25,7 @@ public class BibliotecaAppTest {
         bibliotecaApp.start();
         final String output = outputBuffer.toString();
 
-        assertTrue(output.startsWith("Welcome to The Bangalore Public Library system."));
+        Assert.assertTrue(output.startsWith("Welcome to The Bangalore Public Library system."));
     }
 
     @Test
@@ -46,10 +41,10 @@ public class BibliotecaAppTest {
         bibliotecaApp.printBooksInStock();
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("1   The Hunger Games                              Suzanne Collins      2008"));
-        assertTrue(output.contains("2   Harry Potter and the Order of the Phoenix     J.K. Rowling         2004"));
-        assertTrue(output.contains("3   To Kill a Mockingbird                         Harper Lee           1813"));
-        assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
+        Assert.assertTrue(output.contains("1   The Hunger Games                              Suzanne Collins      2008"));
+        Assert.assertTrue(output.contains("2   Harry Potter and the Order of the Phoenix     J.K. Rowling         2004"));
+        Assert.assertTrue(output.contains("3   To Kill a Mockingbird                         Harper Lee           1813"));
+        Assert.assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
     }
 
     @Test
@@ -66,7 +61,7 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.startsWith("Main Menu\n"));
+        Assert.assertTrue(output.startsWith("Main Menu\n"));
     }
 
     @Test
@@ -83,8 +78,8 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("1   The Hunger Games                              Suzanne Collins      2008"));
-        assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
+        Assert.assertTrue(output.contains("1   The Hunger Games                              Suzanne Collins      2008"));
+        Assert.assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
     }
 
     @Test
@@ -101,7 +96,7 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("Select a valid option!"));
+        Assert.assertTrue(output.contains("Select a valid option!"));
     }
 
     @Test
@@ -117,7 +112,7 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("Type 'Quit' if you want to leave.\n"));
+        Assert.assertTrue(output.contains("Type 'Quit' if you want to leave.\n"));
     }
 
 
@@ -137,7 +132,7 @@ public class BibliotecaAppTest {
 
         List<List<String>> booksInStock = app.getBooksInStock();
         for (List<String> book : booksInStock) {
-            assertFalse("Check that the book is not in a stock", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
+            Assert.assertFalse("Check that the book is not in a stock", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
         }
     }
 
@@ -158,7 +153,7 @@ public class BibliotecaAppTest {
 
         List<List<String>> bookCheckedOut = app.getBooksCheckedOut();
         for (List<String> book : bookCheckedOut) {
-            assertTrue("Check that the book is in check out books list", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
+            Assert.assertTrue("Check that the book is in check out books list", ("The Book Thief".equals(book.get(0)) && "Markus Badach".equals(book.get(1)) && "2005".equals(book.get(2))));
         }
     }
 
@@ -176,8 +171,8 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("Thank you! Enjoy the book\n"));
-        assertFalse(output.contains("That book is not available."));
+        Assert.assertTrue(output.contains("Thank you! Enjoy the book\n"));
+        Assert.assertFalse(output.contains("That book is not available."));
     }
 
 
@@ -195,8 +190,8 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.contains("That book is not available.\n"));
-        assertFalse(output.contains("Thank you! Enjoy the book\n"));
+        Assert.assertTrue(output.contains("That book is not available.\n"));
+        Assert.assertFalse(output.contains("Thank you! Enjoy the book\n"));
     }
 
 
@@ -229,8 +224,8 @@ public class BibliotecaAppTest {
         row.add("C.S. Lewis");
         row.add("1956");
 
-        assertFalse(booksCheckedOut.contains(inputBooks));
-        assertEquals(booksCheckedOut, inputBooks);
+        Assert.assertFalse(booksCheckedOut.contains(inputBooks));
+        Assert.assertEquals(booksCheckedOut, inputBooks);
     }
 
     @Test
@@ -253,15 +248,16 @@ public class BibliotecaAppTest {
 
         app.checkOutTheBook(row);
 
-        assertFalse(app.getBooksInStock().containsAll(inputBooks));
-        assertEquals(app.getBooksCheckedOut(), inputBooks);
+
+        Assert.assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        Assert.assertEquals(app.getBooksCheckedOut(), inputBooks);
 
         app.returnTheBook();
 
         final String output = outputBuffer.toString();
 
-        assertTrue(app.getBooksInStock().containsAll(inputBooks));
-        assertTrue(app.getBooksCheckedOut().isEmpty());
+        Assert.assertTrue(app.getBooksInStock().containsAll(inputBooks));
+        Assert.assertTrue(app.getBooksCheckedOut().isEmpty());
     }
 
     @Test
@@ -284,14 +280,15 @@ public class BibliotecaAppTest {
 
         app.checkOutTheBook(row);
 
-        assertFalse(app.getBooksInStock().containsAll(inputBooks));
-        assertEquals(app.getBooksCheckedOut(), inputBooks);
+        Assert.assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        Assert.assertEquals(app.getBooksCheckedOut(), inputBooks);
 
         app.returnTheBook();
 
         final String output = outputBuffer.toString();
-        assertTrue(output.contains("Thank you for returning the book."));
-        assertFalse(output.contains("That is not a valid book to return."));
+        Assert.assertTrue(output.contains("Thank you for returning the book."));
+
+        Assert.assertFalse(output.contains("That is not a valid book to return."));
     }
 
     @Test
@@ -314,14 +311,14 @@ public class BibliotecaAppTest {
 
         app.checkOutTheBook(row);
 
-        assertFalse(app.getBooksInStock().containsAll(inputBooks));
-        assertEquals(app.getBooksCheckedOut(), inputBooks);
+        Assert.assertFalse(app.getBooksInStock().containsAll(inputBooks));
+        Assert.assertEquals(app.getBooksCheckedOut(), inputBooks);
 
         app.returnTheBook();
 
         final String output = outputBuffer.toString();
-        assertTrue(output.contains("That is not a valid book to return."));
-        assertFalse(output.contains("Thank you for returning the book"));
+        Assert.assertTrue(output.contains("That is not a valid book to return."));
+        Assert.assertFalse(output.contains("Thank you for returning the book"));
     }
 }
 

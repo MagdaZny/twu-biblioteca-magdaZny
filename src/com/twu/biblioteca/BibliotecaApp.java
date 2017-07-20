@@ -57,7 +57,7 @@ public class BibliotecaApp {
         for (int i = 0; i < booksInStock.size(); i++)
             io.printf("%-3d %-45s %-20s %-4s\n", i + 1, booksInStock.get(i).get(0), booksInStock.get(i).get(1), booksInStock.get(i).get(2));
         io.println("\n");
-        if(io.readString("Do you want to go to the Main Menu?  Press 'y' to confirm.").equals("y")) showMainMenu();
+        if (io.readString("Do you want to go to the Main Menu?  Press 'y' to confirm.").equals("y")) showMainMenu();
     }
 
 
@@ -73,7 +73,7 @@ public class BibliotecaApp {
 
     }
 
-    private void decideTheOption(){
+    private void decideTheOption() {
 
         String choice = io.next();
         if ("1".equals(choice)) printBooksInStock();
@@ -91,11 +91,11 @@ public class BibliotecaApp {
 
         List<String> book = getBooksDetailsFromTheConsole("check out");
 
-        if (booksInStock.contains(book)){
-                booksInStock.remove(book);
-                booksCheckedOut.add(book);
-                io.println("\nThank you! Enjoy the book\n\n");
-            } else io.println("\nThat book is not available.\n\n");
+        if (booksInStock.contains(book)) {
+            booksInStock.remove(book);
+            booksCheckedOut.add(book);
+            io.println("\nThank you! Enjoy the book\n\n");
+        } else io.println("\nThat book is not available.\n\n");
         showMainMenu();
     }
 
@@ -103,11 +103,11 @@ public class BibliotecaApp {
 
         List<String> book = getBooksDetailsFromTheConsole("return");
 
-        if (booksCheckedOut.contains(book)){
-                booksCheckedOut.remove(book);
-                booksInStock.add(book);
-                io.println("\nThank you for returning the book.\n\n");
-            }else io.println("\nThat is not a valid book to return.\n\n");
+        if (booksCheckedOut.contains(book)) {
+            booksCheckedOut.remove(book);
+            booksInStock.add(book);
+            io.println("\nThank you for returning the book.\n\n");
+        } else io.println("\nThat is not a valid book to return.\n\n");
         showMainMenu();
     }
 
@@ -116,8 +116,8 @@ public class BibliotecaApp {
         List<String> bookDetails = new ArrayList();
 
         io.println("In order to " + activity + " a book please provide the following details.");
-        bookDetails.add(0,io.readString("\ntitle"));
-        bookDetails.add(1,io.readString("\nauthor"));
+        bookDetails.add(0, io.readString("\ntitle"));
+        bookDetails.add(1, io.readString("\nauthor"));
         bookDetails.add(2, io.readString("\nyear"));
 
         return bookDetails;
