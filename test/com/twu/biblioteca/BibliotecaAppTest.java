@@ -123,7 +123,7 @@ public class BibliotecaAppTest {
     @Test
     public void removeBookFromTheListAndAddToCheckedOutListWhenWasCheckedOut() throws IOException {
 
-        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,Quit");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -144,7 +144,7 @@ public class BibliotecaAppTest {
     @Test
     public void addTheBookToCheckedOutListWhenWasCheckedOut() throws IOException {
 
-        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,Quit");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -164,7 +164,7 @@ public class BibliotecaAppTest {
     @Test
     public void printTheMessageWhenSuccessfullyCheckedOutTheBook() throws IOException {
 
-        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005");
+        Scanner scanner = new Scanner("The Book Thief,Markus Badach,2005,Quit");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -175,14 +175,14 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.endsWith("Thank you! Enjoy the book\n"));
+        assertTrue(output.contains("Thank you! Enjoy the book\n"));
     }
 
 
     @Test
     public void printTheMessageWhenUnsuccessfullyCheckedOutTheBook() throws IOException {
 
-        Scanner scanner = new Scanner("The Book Thier,Markus Badach,2005");
+        Scanner scanner = new Scanner("The Book Thier,Markus Badach,2005,Quit");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -193,7 +193,7 @@ public class BibliotecaAppTest {
 
         final String output = outputBuffer.toString();
 
-        assertTrue(output.endsWith("That book is not available.\n"));
+        assertTrue(output.contains("That book is not available.\n"));
     }
 
 

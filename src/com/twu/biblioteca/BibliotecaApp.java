@@ -23,7 +23,6 @@ public class BibliotecaApp {
         booksCheckedOut = new ArrayList();
         String line;
 
-
         for (int i = 0; i < 16; i++) {
             line = bufferedReader.readLine();
             String[] book = line.split(",");
@@ -43,7 +42,9 @@ public class BibliotecaApp {
         for (int i = 0; i < 47; i++) {
             io.print("=");
         }
-        io.println("\n");        showMainMenu();
+        io.println("\n");
+
+        showMainMenu();
     }
 
 
@@ -57,12 +58,12 @@ public class BibliotecaApp {
             io.printf("%-3d %-45s %-20s %-4s\n", i + 1, booksInStock.get(i).get(0), booksInStock.get(i).get(1), booksInStock.get(i).get(2));
     }
 
+
     public void showMainMenu() {
 
         io.println("Main Menu\n----------\nPlease select the option:");
         io.printf("%-3d %-10s\n", 1, "List Books");
         io.printf("%-3d %-10s\n", 2, "Check out a book");
-
         io.print("\n\n\nType 'Quit' if you want to leave.\n");
 
         String choice = io.next();
@@ -72,6 +73,7 @@ public class BibliotecaApp {
         else if ("Quit".equalsIgnoreCase(choice)) return;
         else io.println("Select a valid option!");
     }
+
 
     public void checkOut() {
 
@@ -88,7 +90,10 @@ public class BibliotecaApp {
                 break;
             } else io.println("That book is not available.");
         }
+
+        showMainMenu();
     }
+
 
     public List<List<String>> getBooksInStock() {
         return booksInStock;
