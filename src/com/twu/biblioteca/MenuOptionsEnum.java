@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public enum MenuOptions {
+public enum MenuOptionsEnum {
 
     LIST_BOOKS("1"),
     CHECK_OUT_BOOK("2"),
@@ -8,12 +8,11 @@ public enum MenuOptions {
 
     private String id;
 
-    MenuOptions(String id) {
+    MenuOptionsEnum(String id) {
         this.id = id;
     }
 
-    public String returnId(){
-        return id;
+    public String returnId(){  return id;
     }
 
     @Override

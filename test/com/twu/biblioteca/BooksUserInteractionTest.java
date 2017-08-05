@@ -6,11 +6,9 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class UserInteractionTest {
+public class BooksUserInteractionTest {
 
     @Test
     public void printWelcomeMessageWhenStartApp() throws IOException {
@@ -21,7 +19,7 @@ public class UserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
 
         userInteractions.start();
         final String output = outputBuffer.toString();
@@ -37,7 +35,7 @@ public class UserInteractionTest {
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
 
         userInteractions.printBooksInStock();
         final String output = outputBuffer.toString();
@@ -56,7 +54,7 @@ public class UserInteractionTest {
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
 
         userInteractions.showMainMenu();
 
@@ -73,7 +71,7 @@ public class UserInteractionTest {
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
 
         userInteractions.printBooksInStock();
 
@@ -91,7 +89,7 @@ public class UserInteractionTest {
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
         userInteractions.decideTheOption();
 
         final String output = outputBuffer.toString();
@@ -106,7 +104,7 @@ public class UserInteractionTest {
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
 
         userInteractions.showMainMenu();
 
@@ -124,7 +122,7 @@ public class UserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
         userInteractions.checkOutBook();
 
         final String output = outputBuffer.toString();
@@ -142,7 +140,7 @@ public class UserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
         userInteractions.checkOutBook();
 
         final String output = outputBuffer.toString();
@@ -160,10 +158,10 @@ public class UserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
-        userInteractions.bibliotecaApp.checkOutTheBook(book);
+        userInteractions.bibliotecaApp.checkOut(book);
         userInteractions.returnBook();
 
         final String output = outputBuffer.toString();
@@ -180,10 +178,10 @@ public class UserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        UserInteractions userInteractions = new UserInteractions(scanner, out);
+        MainMenu userInteractions = new MainMenu(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
-        userInteractions.bibliotecaApp.checkOutTheBook(book);
+        userInteractions.bibliotecaApp.checkOut(book);
         userInteractions.returnBook();
 
         final String output = outputBuffer.toString();

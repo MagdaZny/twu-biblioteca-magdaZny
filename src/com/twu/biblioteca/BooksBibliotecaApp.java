@@ -7,9 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileParser {
+public class BooksBibliotecaApp extends BibliotecaApp<Book> {
 
-    public List<Book> addBooksToTheList() throws IOException {
+    BooksBibliotecaApp() throws IOException {
+
+        checkedOut = new ArrayList();
+        stock = addBooksToTheList();
+    }
+
+
+    private List<Book> addBooksToTheList() throws IOException {
 
         String file = new File("src/resources/books.csv").getAbsolutePath();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

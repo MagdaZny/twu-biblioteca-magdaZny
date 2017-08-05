@@ -1,56 +1,52 @@
 package com.twu.biblioteca;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class BibliotecaApp {
+public abstract class BibliotecaApp<Item>{
 
-    private List<Book> booksInStock;
-    private List<Book> booksCheckedOut;
+    protected List<Item> stock;
+    protected List<Item> checkedOut;
 
-    BibliotecaApp() throws IOException {
 
-        booksCheckedOut = new ArrayList();
+    public void checkOut(Item item) {
 
-        FileParser fileParser = new FileParser();
-        booksInStock = fileParser.addBooksToTheList();
-    }
-
-    public void checkOutTheBook(Book book) {
-
-        if (isBookInStock(book)) {
-            booksInStock.remove(book);
-            booksCheckedOut.add(book);
+        if (isInStock(item)) {
+            stock.remove(item);
+            checkedOut.add(item);
         }
     }
 
-    public Boolean isBookInStock(Book book) {
-        return (booksInStock .contains(book));
+    public Boolean isInStock(Item item) {
+
+        return (stock.contains(item));
     }
 
 
-    public void returnTheBook(Book book) {
+    public void returnTheItem(Item item) {
 
-        if (isBookCheckedOut(book)) {
-            booksCheckedOut.remove(book);
-            booksInStock.add(book);
+        if (isCheckedOut(item)) {
+            checkedOut.remove(item);
+            stock.add(item);
         }
     }
 
-    public Boolean isBookCheckedOut(Book book) {
-        return booksCheckedOut.contains(book);
+    public Boolean isCheckedOut(Item item) {
+
+        return checkedOut.contains(item);
     }
 
 
-    public List<Book> getBooksInStock() {
-        return booksInStock;
+    public List<Item> getTheItemsInStock() {
+
+        return stock;
     }
 
 
-    public List<Book> getBooksCheckedOut() {
-        return booksCheckedOut;
+    public List<Item> getTheItemsCheckedOut() {
+
+        return checkedOut;
     }
+
 
 
 

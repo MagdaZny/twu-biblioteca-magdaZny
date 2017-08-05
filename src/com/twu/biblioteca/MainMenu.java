@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static com.twu.biblioteca.MenuOptions.*;
+import static com.twu.biblioteca.MenuOptionsEnum.*;
 
-public class UserInteractions {
+public class MainMenu {
 
     public IOUtil io;
     public BibliotecaApp bibliotecaApp;
 
-    public UserInteractions(Scanner scanner, PrintStream out) throws IOException {
+    public MainMenu(Scanner scanner, PrintStream out) throws IOException {
 
-        bibliotecaApp = new BibliotecaApp();
+        bibliotecaApp = new BooksBibliotecaApp();
         io = new IOUtil(scanner, out);
     }
 
@@ -49,8 +49,8 @@ public class UserInteractions {
 
         Book bookDetailsFromUser = getBooksDetailsFromUser("check out");
 
-        if (bibliotecaApp.isBookInStock(bookDetailsFromUser)) {
-            bibliotecaApp.checkOutTheBook(bookDetailsFromUser);
+        if (bibliotecaApp.isInStock(bookDetailsFromUser)) {
+            bibliotecaApp.checkOut(bookDetailsFromUser);
             printCheckOutMessage(true);
         } else printCheckOutMessage(false);
     }
@@ -60,8 +60,8 @@ public class UserInteractions {
 
         Book bookDetailsFromUser = getBooksDetailsFromUser("return");
 
-        if (bibliotecaApp.isBookCheckedOut(bookDetailsFromUser)) {
-            bibliotecaApp.returnTheBook(bookDetailsFromUser);
+        if (bibliotecaApp.isCheckedOut(bookDetailsFromUser)) {
+            bibliotecaApp.returnTheItem(bookDetailsFromUser);
             printReturnBookMessage(true);
         } else printReturnBookMessage(false);
     }
@@ -73,8 +73,8 @@ public class UserInteractions {
         for (int i = 0; i < 75; i++)
             io.print("-");
         io.println("");
-        for (int i = 0; i < bibliotecaApp.getBooksInStock().size(); i++)
-            io.printf("%-3d %-45s %-20s %-4s\n", i + 1, bibliotecaApp.getBooksInStock().get(i).getTitle(), bibliotecaApp.getBooksInStock().get(i).getAuthor(), bibliotecaApp.getBooksInStock().get(i).getYear());
+        for (int i = 0; i < bibliotecaApp.getTheItemsInStock().size(); i++)
+            io.printf("%-3d %-45s %-20s %-4s\n", i + 1, bibliotecaApp.getTheItemsInStock().get(i).getTitle(), bibliotecaApp.getTheItemsInStock().get(i).getAuthor(), bibliotecaApp.getTheItemsInStock().get(i).getYear());
         io.println("\n");
         if (io.readString("Do you want to go to the Main Menu?  Press 'y' to confirm.").equals("y")) showMainMenu();
     }

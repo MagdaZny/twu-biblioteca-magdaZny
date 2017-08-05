@@ -1,13 +1,10 @@
 package com.twu.biblioteca;
 
-import java.util.Objects;
-
 public class Book {
 
     private String title;
     private String author;
     private String year;
-    private boolean isAvailable;
 
     public Book() {
     }
@@ -43,9 +40,6 @@ public class Book {
         this.year = year;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
 
     @Override
     public boolean equals(Object o) {

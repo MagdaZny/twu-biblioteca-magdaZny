@@ -11,27 +11,27 @@ public class BibliotecaAppTest {
     @Test
     public void removeBookFromTheListAndAddToCheckedOutListWhenWasCheckedOut() throws IOException {
 
-        BibliotecaApp app = new BibliotecaApp();
+        BibliotecaApp app = new BooksBibliotecaApp();
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
-        app.checkOutTheBook(book);
+        app.checkOut(book);
 
-        Assert.assertFalse(app.getBooksInStock().contains(book));
-        Assert.assertTrue(app.getBooksCheckedOut().contains(book));
+        Assert.assertFalse(app.getTheItemsInStock().contains(book));
+        Assert.assertTrue(app.getTheItemsCheckedOut().contains(book));
     }
 
 
     @Test
     public void checkOutTwoBooks() throws IOException {
 
-        BibliotecaApp app = new BibliotecaApp();
+        BibliotecaApp app = new BooksBibliotecaApp();
 
         Book book1 = new Book("The Book Thief", "Markus Badach", "2005");
-        app.checkOutTheBook(book1);
+        app.checkOut(book1);
         Book book2 = new Book("The Chronicles of Narnia", "C.S. Lewis", "1956");
-        app.checkOutTheBook(book2);
+        app.checkOut(book2);
 
-        List<Book> booksCheckedOut = app.getBooksCheckedOut();
-        List<Book> booksInStock = app.getBooksInStock();
+        List<Book> booksCheckedOut = app.getTheItemsCheckedOut();
+        List<Book> booksInStock = app.getTheItemsInStock();
 
         Assert.assertTrue(booksCheckedOut.contains(book1));
         Assert.assertTrue(booksCheckedOut.contains(book2));
@@ -43,16 +43,16 @@ public class BibliotecaAppTest {
     @Test
     public void addBookToBooksInStockListAndRemoveFromCheckedOutWhenWasReturned() throws IOException {
 
-        final BibliotecaApp app = new BibliotecaApp();
+        final BibliotecaApp app = new BooksBibliotecaApp();
 
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
-        app.checkOutTheBook(book);
-        Assert.assertFalse(app.getBooksInStock().contains(book));
-        Assert.assertTrue(app.getBooksCheckedOut().contains(book));
+        app.checkOut(book);
+        Assert.assertFalse(app.getTheItemsInStock().contains(book));
+        Assert.assertTrue(app.getTheItemsCheckedOut().contains(book));
 
-        app.returnTheBook(book);
-        Assert.assertTrue(app.getBooksInStock().contains(book));
-        Assert.assertTrue(app.getBooksCheckedOut().isEmpty());
+        app.returnTheItem(book);
+        Assert.assertTrue(app.getTheItemsInStock().contains(book));
+        Assert.assertTrue(app.getTheItemsCheckedOut().isEmpty());
     }
 }
 
