@@ -161,7 +161,7 @@ public class BooksUserInteractionTest {
         MainMenu userInteractions = new MainMenu(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
-        userInteractions.bibliotecaApp.checkOut(book);
+        userInteractions.bookBibliotecaApp.checkOut(book);
         userInteractions.returnBook();
 
         final String output = outputBuffer.toString();
@@ -181,7 +181,7 @@ public class BooksUserInteractionTest {
         MainMenu userInteractions = new MainMenu(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
-        userInteractions.bibliotecaApp.checkOut(book);
+        userInteractions.bookBibliotecaApp.checkOut(book);
         userInteractions.returnBook();
 
         final String output = outputBuffer.toString();

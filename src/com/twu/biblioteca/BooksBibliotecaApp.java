@@ -38,4 +38,8 @@ public class BooksBibliotecaApp extends BibliotecaApp<Book> {
         }
         return listOfBooks;
     }
+
+//    public String getAuthor(){
+//        return book.getAuthor();
+//    }
 }
