@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static java.lang.System.out;
+
 
 public class Main {
 
@@ -11,8 +13,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.getProperty("line.separator"));
 
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(scanner, System.out);
-        bibliotecaApp.start();
+        UserInteractions userInteractions = new UserInteractions(scanner, out);;
+        userInteractions.start();
+
     }
 }
 

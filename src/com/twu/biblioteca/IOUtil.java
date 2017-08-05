@@ -29,7 +29,7 @@ public class IOUtil {
         out.print(message);
     }
 
-    public void printf(String s, int i, String s1) {
+    public void printf(String s, String i, String s1) {
         out.printf(s, i, s1);
     }
 
@@ -39,5 +39,13 @@ public class IOUtil {
 
     public void printf(String s, int  no, String title, String author, String year) {
         out.printf(s, no, title, author, year);
+    }
+
+    public Scanner getIn() {
+        return in;
+    }
+
+    public PrintStream getOut() {
+        return out;
     }
 }
