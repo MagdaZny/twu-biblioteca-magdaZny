@@ -54,6 +54,53 @@ public class BibliotecaAppTest {
         Assert.assertTrue(app.getTheItemsInStock().contains(book));
         Assert.assertTrue(app.getTheItemsCheckedOut().isEmpty());
     }
+
+    @Test
+    public void removeMovieFromTheListAndAddToCheckedOutListWhenWasCheckedOut() throws IOException {
+
+        BibliotecaApp app = new MoviesBibliotecaApp();
+        Movie movie = new Movie("The Book Thief (Movie)", "2005", "Markus Badach", "8");
+        app.checkOut(movie);
+
+        Assert.assertFalse(app.getTheItemsInStock().contains(movie));
+        Assert.assertTrue(app.getTheItemsCheckedOut().contains(movie));
+    }
+
+
+    @Test
+    public void checkOutTwoMovies() throws IOException {
+
+        BibliotecaApp app = new MoviesBibliotecaApp();
+
+        Movie movie1 = new Movie("The Book Thief (Movie)", "2005", "Markus Badach", "8");
+        app.checkOut(movie1);
+        Movie movie2 = new Movie("The Chronicles of Narnia (Movie)", "1956", "C.S. Lewis", "6");
+        app.checkOut(movie2);
+
+        List<Movie> moviesCheckedOut = app.getTheItemsCheckedOut();
+        List<Movie> moviesInStock = app.getTheItemsInStock();
+
+        Assert.assertTrue(moviesCheckedOut.contains(movie1));
+        Assert.assertTrue(moviesCheckedOut.contains(movie2));
+        Assert.assertFalse(moviesInStock.contains(movie1));
+        Assert.assertFalse(moviesInStock.contains(movie2));
+    }
+
+
+    @Test
+    public void addMovieToMoviesInStockListAndRemoveFromCheckedOutWhenWasReturned() throws IOException {
+
+        final BibliotecaApp app = new MoviesBibliotecaApp();
+
+        Movie movie = new Movie("The Book Thief (Movie)", "2005", "Markus Badach", "8");
+        app.checkOut(movie);
+        Assert.assertFalse(app.getTheItemsInStock().contains(movie));
+        Assert.assertTrue(app.getTheItemsCheckedOut().contains(movie));
+
+        app.returnTheItem(movie);
+        Assert.assertTrue(app.getTheItemsInStock().contains(movie));
+        Assert.assertTrue(app.getTheItemsCheckedOut().isEmpty());
+    }
 }
 
 

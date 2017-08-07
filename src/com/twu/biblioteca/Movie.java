@@ -57,7 +57,6 @@ public class Movie {
 
         Movie movie = (Movie) o;
 
-        if (rating != movie.rating) return false;
         if (!name.equals(movie.name)) return false;
         if (!year.equals(movie.year)) return false;
         return director.equals(movie.director);
@@ -68,7 +67,6 @@ public class Movie {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (director != null ? director.hashCode() : 0);
         result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         return result;
     }
 }

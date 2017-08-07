@@ -10,68 +10,35 @@ import java.util.Scanner;
 
 public class BooksUserInteractionTest {
 
-    @Test
-    public void printWelcomeMessageWhenStartApp() throws IOException {
-
-        final Scanner scanner = new Scanner("1,n");
-        scanner.useDelimiter(",");
-
-        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
-        PrintStream out = new PrintStream(outputBuffer);
-
-        MainMenu userInteractions = new MainMenu(scanner, out);
-
-        userInteractions.start();
-        final String output = outputBuffer.toString();
-
-        Assert.assertTrue(output.startsWith("Welcome to The Bangalore Public Library system."));
-    }
 
     @Test
     public void printBooksInStockTitlesWithAuthorAndYear() throws IOException {
 
-        final Scanner scanner = new Scanner("1");
+        final Scanner scanner = new Scanner("1,t");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
 
         userInteractions.printBooksInStock();
         final String output = outputBuffer.toString();
 
         Assert.assertTrue(output.contains("1   The Hunger Games                              Suzanne Collins      2008"));
-        Assert.assertTrue(output.contains("2   Harry Potter and the Order of the Phoenix     J.K. Rowling         2004"));
         Assert.assertTrue(output.contains("3   To Kill a Mockingbird                         Harper Lee           1813"));
         Assert.assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
     }
 
-    @Test
-    public void showMainMenu() throws IOException {
 
-        final Scanner scanner = new Scanner("1,n");
+    @Test
+    public void showListOfBooks() throws IOException {
+
+        final Scanner scanner = new Scanner("");
         scanner.useDelimiter(",");
 
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
-        MainMenu userInteractions = new MainMenu(scanner, out);
-
-        userInteractions.showMainMenu();
-
-        final String output = outputBuffer.toString();
-
-        Assert.assertTrue(output.startsWith("Main Menu\n"));
-    }
-
-    @Test
-    public void showListOfBooksWhenChooseOptionOne() throws IOException {
-
-        final Scanner scanner = new Scanner("n");
-        scanner.useDelimiter(",");
-
-        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
-        PrintStream out = new PrintStream(outputBuffer);
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
 
         userInteractions.printBooksInStock();
 
@@ -81,37 +48,6 @@ public class BooksUserInteractionTest {
         Assert.assertTrue(output.contains("16  The Da Vinci Code                             Dan Brown            2003"));
     }
 
-    @Test
-    public void showMessageWhenInvalidOptionWasChosen() throws IOException {
-
-        final Scanner scanner = new Scanner("4,Quit");
-        scanner.useDelimiter(",");
-
-        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
-        PrintStream out = new PrintStream(outputBuffer);
-        MainMenu userInteractions = new MainMenu(scanner, out);
-        userInteractions.decideTheOption();
-
-        final String output = outputBuffer.toString();
-
-        Assert.assertTrue(output.contains("Select a valid option!"));
-    }
-
-    @Test
-    public void terminateWhenQuitOptionWasChosen() throws IOException {
-
-        final Scanner scanner = new Scanner("Quit");
-
-        ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
-        PrintStream out = new PrintStream(outputBuffer);
-        MainMenu userInteractions = new MainMenu(scanner, out);
-
-        userInteractions.showMainMenu();
-
-        final String output = outputBuffer.toString();
-
-        Assert.assertTrue(output.contains("Type 'Quit' if you want to leave.\n"));
-    }
 
     @Test
     public void printTheMessageWhenSuccessfullyCheckedOutTheBook() throws IOException {
@@ -122,7 +58,7 @@ public class BooksUserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
         userInteractions.checkOutBook();
 
         final String output = outputBuffer.toString();
@@ -140,7 +76,7 @@ public class BooksUserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
         userInteractions.checkOutBook();
 
         final String output = outputBuffer.toString();
@@ -158,7 +94,7 @@ public class BooksUserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
         userInteractions.bookBibliotecaApp.checkOut(book);
@@ -178,7 +114,7 @@ public class BooksUserInteractionTest {
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outputBuffer);
 
-        MainMenu userInteractions = new MainMenu(scanner, out);
+        BooksUsersInteractions userInteractions = new BooksUsersInteractions(scanner, out);
         Book book = new Book("The Book Thief", "Markus Badach", "2005");
 
         userInteractions.bookBibliotecaApp.checkOut(book);

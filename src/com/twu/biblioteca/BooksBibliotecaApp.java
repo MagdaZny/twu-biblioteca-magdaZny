@@ -9,6 +9,7 @@ import java.util.List;
 
 public class BooksBibliotecaApp extends BibliotecaApp<Book> {
 
+    Book book;
     BooksBibliotecaApp() throws IOException {
 
         checkedOut = new ArrayList();
@@ -39,7 +40,4 @@ public class BooksBibliotecaApp extends BibliotecaApp<Book> {
         return listOfBooks;
     }
 
-//    public String getAuthor(){
-//        return book.getAuthor();
-//    }
 }

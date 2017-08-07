@@ -37,8 +37,12 @@ public class IOUtil {
         out.printf(s, no, title, author, year);
     }
 
-    public void printf(String s, int  no, String title, String author, String year) {
+    public void printf(String s, int no, String title, String author, String year) {
         out.printf(s, no, title, author, year);
+    }
+
+    public void printf(String s, int no, String title, String author, String year, String rating) {
+        out.printf(s, no, title, author, year, rating);
     }
 
     public Scanner getIn() {
@@ -47,5 +51,9 @@ public class IOUtil {
 
     public PrintStream getOut() {
         return out;
+    }
+
+    public void printf(String s, String no, String name, String director, String year, String rating) {
+        out.printf(s, no, name, director, year, rating);
     }
 }

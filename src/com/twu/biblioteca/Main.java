@@ -13,7 +13,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter(System.getProperty("line.separator"));
 
-        MainMenu userInteractions = new MainMenu(scanner, out);;
+        MainMenu userInteractions = new MainMenu(scanner, out);
         userInteractions.start();
 
     }

@@ -7,7 +7,6 @@ public abstract class BibliotecaApp<Item>{
     protected List<Item> stock;
     protected List<Item> checkedOut;
 
-
     public void checkOut(Item item) {
 
         if (isInStock(item)) {
@@ -46,6 +45,7 @@ public abstract class BibliotecaApp<Item>{
 
         return checkedOut;
     }
+
 
 
 
